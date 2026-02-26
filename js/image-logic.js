@@ -3,6 +3,13 @@ import { layer, tr, config } from './canvas.js';
 export let imagesData = [];
 let currentDistPattern = 'jitter';
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 export async function handleFiles(files) {
     const assetGrid = document.getElementById('assetGrid');
     
@@ -32,7 +39,6 @@ export async function handleFiles(files) {
         kImg.on('click tap dragstart', () => selectImage(kImg));
 
         layer.add(kImg);
-        // Added layout property to store state
         imagesData.push({ 
             kImg, 
             origW: imgObj.width, 
@@ -44,7 +50,6 @@ export async function handleFiles(files) {
     shuffleLayout(currentDistPattern);
 }
 
-// 1. Separate Scaling from Positioning
 export function applyGlobalScale() {
     const userScaleSlider = Number(document.getElementById('globalScale').value);
     const userScaleMult = Math.pow(1.5, userScaleSlider); 
@@ -62,11 +67,12 @@ export function applyGlobalScale() {
     layer.batchDraw();
 }
 
-// 2. Layout Logic (Jitter, Orbital, Spiral, Grid)
 export function shuffleLayout(pattern) {
     currentDistPattern = pattern;
     const count = imagesData.length;
     if (count === 0) return;
+
+    shuffleArray(imagesData);
 
     const autoScaleFactor = Math.max(0.2, 1.0 / Math.sqrt(count));
     const centerX = config.width / 2;
@@ -77,16 +83,18 @@ export function shuffleLayout(pattern) {
 
         if (pattern === 'grid') {
             const cols = Math.ceil(Math.sqrt(count * (config.width / config.height)));
+            const rows = Math.ceil(count / cols);
             const cellW = config.width / cols;
-            const cellH = config.height / Math.ceil(count / cols);
+            const cellH = config.height / rows;
             posX = ((i % cols) + 0.5) * cellW;
             posY = (Math.floor(i / cols) + 0.5) * cellH;
             rotation = 0;
         } 
         else if (pattern === 'jitter') {
             const cols = Math.ceil(Math.sqrt(count * (config.width / config.height)));
+            const rows = Math.ceil(count / cols);
             const cellW = config.width / cols;
-            const cellH = config.height / Math.ceil(count / cols);
+            const cellH = config.height / rows;
             const baseX = ((i % cols) + 0.5) * cellW;
             const baseY = (Math.floor(i / cols) + 0.5) * cellH;
             posX = baseX + (Math.random() - 0.5) * cellW * 1.2;
@@ -110,7 +118,6 @@ export function shuffleLayout(pattern) {
             radialFactor = 1.1;
         }
 
-        // Store layout state
         const baseSizeScale = Math.min(config.width / data.origW, config.height / data.origH);
         data.layout = {
             x: posX,
