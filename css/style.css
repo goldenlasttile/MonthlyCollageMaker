@@ -1,0 +1,153 @@
+.header-main {
+    border-bottom: 1px solid black;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    z-index: 50;
+}
+.logo-box {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid black;
+    display: flex;
+    items-center: center;
+    justify-content: center;
+    background-color: #00FF00;
+    transform: rotate(-3deg);
+    box-shadow: 3px 3px 0px 0px rgba(0,0,0,1);
+}
+.sidebar {
+    width: 18rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #F5F5F5;
+    overflow-y: auto;
+}
+.section-title {
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    opacity: 0.4;
+}
+.input-field {
+    width: 100%;
+    border: 1px solid black;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    outline: none;
+}
+.input-field:focus {
+    background-color: #00FF00;
+}
+.btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: black;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+}
+.btn-primary:hover {
+    background-color: #00FF00;
+    color: black;
+}
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid black;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    transition: all 0.2s;
+}
+.btn-secondary:hover {
+    background-color: #00FF00;
+}
+.drop-zone {
+    border: 2px dashed black;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.2s;
+}
+.drop-zone:hover {
+    background-color: #f9fafb;
+}
+.canvas-area {
+    flex: 1;
+    background-color: #E5E5E5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+.canvas-container-box {
+    position: relative;
+    border: 1px solid black;
+    background-color: white;
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+}
+.label-xs {
+    display: block;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    margin-top: 0.5rem;
+}
+.pat-btn {
+    border: 1px solid black;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 0.25rem;
+    background: white;
+}
+.pat-btn:hover, .pat-btn.active {
+    background-color: #00FF00;
+}
+
+.asset-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.asset-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.1s ease;
+}
+
+.asset-thumb:hover {
+    border-color: #00FF00;
+    transform: scale(0.95);
+    box-shadow: 2px 2px 0px black;
+}
+
+/* Highlight thumbnail when image is selected on canvas */
+.asset-thumb.selected {
+    border: 3px solid #00FF00;
+}
