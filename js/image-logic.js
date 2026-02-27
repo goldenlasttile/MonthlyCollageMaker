@@ -47,7 +47,7 @@ export async function handleFiles(files) {
             layout: { x: 0, y: 0, rotation: 0, baseScale: 1 } 
         });
     }
-    shuffleLayout(currentDistPattern);
+    //shuffleLayout(currentDistPattern);
 }
 
 export function applyGlobalScale() {
