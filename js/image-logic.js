@@ -57,9 +57,9 @@ export function applyGlobalScale() {
     imagesData.forEach(data => {
         const finalScale = data.layout.baseScale * userScaleMult;
         data.kImg.setAttrs({
-            x: data.layout.x,
-            y: data.layout.y,
-            rotation: data.layout.rotation,
+            //x: data.layout.x,
+            //y: data.layout.y,
+            //rotation: data.layout.rotation,
             scaleX: finalScale,
             scaleY: finalScale
         });
