@@ -2,7 +2,6 @@ import { initStage, fitStage, stage, layer, tr, config } from './canvas.js';
 import { initBackground, updateBackground, updatePattern, updatePatternColor, updateOpacity } from './background.js';
 import { applyPreset, handleResolutionChange } from './presets.js';
 import { applyGlobalScale, handleFiles, shuffleLayout, updateImageStyle, imagesData, applyStylesToAll, deleteSelected, clearAll } from './image-logic.js';
-import { addWatermark, updateWatermarkStyle, removeWatermark } from './watermark.js';
 
 // Init with new HD default
 config.width = 2160;
@@ -90,33 +89,5 @@ document.getElementById('btnExport').onclick = () => {
     link.href = dataURL;
     link.click();
 };
-
-// 5. Watermark Inputs (Right Sidebar) (New!)
-document.getElementById('btnToggleWm').onclick = () => {
-    const btn = document.getElementById('btnToggleWm');
-    if (btn.innerHTML === 'Add') {
-        const text = document.getElementById('wmText').value || '@YourID';
-        const color = document.getElementById('wmColor').value;
-        const size = Number(document.getElementById('wmSize').value);
-        const opacity = Number(document.getElementById('wmOpacity').value);
-        
-        addWatermark(text, color, size, opacity);
-        btn.innerHTML = 'Remove';
-        btn.classList.add('bg-red-600', 'hover:bg-red-700');
-    } else {
-        removeWatermark();
-        btn.innerHTML = 'Add';
-        btn.classList.remove('bg-red-600', 'hover:bg-red-700');
-    }
-};
-
-const wmStyleInputs = ['wmColor', 'wmSize', 'wmOpacity', 'wmText'];
-wmStyleInputs.forEach(id => {
-    document.getElementById(id).oninput = () => {
-        const selected = stageRef.transformerRef.current.nodes()[0];
-        // Only update if watermark itself is selected
-        if (selected && selected.name() === 'watermark') updateWatermarkStyle();
-    };
-});
 
 window.onresize = fitStage;
