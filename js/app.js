@@ -113,7 +113,7 @@ document.getElementById('btnToggleWm').onclick = () => {
 const wmStyleInputs = ['wmColor', 'wmSize', 'wmOpacity', 'wmText'];
 wmStyleInputs.forEach(id => {
     document.getElementById(id).oninput = () => {
-        const selected = stageRef.transformerRef.current.nodes()[0];
+        const selected = tr.nodes()[0];
         // Only update if watermark itself is selected
         if (selected && selected.name() === 'watermark') updateWatermarkStyle();
     };
