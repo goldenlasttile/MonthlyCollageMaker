@@ -57,6 +57,23 @@ export async function handleFiles(files) {
     }
 }
 
+export function applyGlobalScale() {
+    const userScaleSlider = Number(document.getElementById('globalScale').value);
+    const userScaleMult = Math.pow(1.5, userScaleSlider); 
+
+    imagesData.forEach(data => {
+        const finalScale = data.layout.baseScale * userScaleMult;
+        data.kImg.setAttrs({
+            x: data.layout.x,
+            y: data.layout.y,
+            rotation: data.layout.rotation,
+            scaleX: finalScale,
+            scaleY: finalScale
+        });
+    });
+    layer.batchDraw();
+}
+
 // Problem Solved Logic: Add new images keeping existing order
 function addImagesToLayout(newImages) {
     if (newImages.length === 0) return;
