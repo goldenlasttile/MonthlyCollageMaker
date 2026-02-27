@@ -76,7 +76,7 @@ document.getElementById('btnShuffle').onclick = () => {
 // Global Scale Slider (Now only calls applyGlobalScale)
 document.getElementById('globalScale').oninput = (e) => {
     document.getElementById('scaleVal').innerText = parseFloat(e.target.value).toFixed(1);
-    applyGlobalScale(); 
+    applyGlobalScale(false); 
 };
 
 document.getElementById('btnExport').onclick = () => {

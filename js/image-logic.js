@@ -50,20 +50,33 @@ export async function handleFiles(files) {
     //shuffleLayout(currentDistPattern);
 }
 
-export function applyGlobalScale() {
+export function applyGlobalScale(changePos) {
     const userScaleSlider = Number(document.getElementById('globalScale').value);
     const userScaleMult = Math.pow(1.5, userScaleSlider); 
 
+    if(changePos)
+    {
     imagesData.forEach(data => {
         const finalScale = data.layout.baseScale * userScaleMult;
         data.kImg.setAttrs({
-            //x: data.layout.x,
-            //y: data.layout.y,
-            //rotation: data.layout.rotation,
+            x: data.layout.x,
+            y: data.layout.y,
+            rotation: data.layout.rotation,
             scaleX: finalScale,
             scaleY: finalScale
         });
     });
+    }
+    else
+    {
+    imagesData.forEach(data => {
+        const finalScale = data.layout.baseScale * userScaleMult;
+        data.kImg.setAttrs({
+            scaleX: finalScale,
+            scaleY: finalScale
+        });
+    });
+    }
     layer.batchDraw();
 }
 
@@ -132,7 +145,7 @@ export function shuffleLayout(pattern) {
         });
     });
 
-    applyGlobalScale();
+    applyGlobalScale(true);
 }
 
 function selectImage(kImg) {
