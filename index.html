@@ -120,6 +120,29 @@
 			        <button class="dist-btn pat-btn" data-dist="spiral">Spiral</button>
 			    </div>
 			</section>
+			<section>
+                <h2 class="text-[10px] font-black uppercase tracking-widest mb-3 opacity-40">06 / Watermark</h2>
+                <div class="flex gap-2 mb-2">
+                    <input type="text" id="wmText" placeholder="@YourID" class="flex-1 border border-black p-2 text-xs font-bold focus:bg-[#00FF00] outline-none">
+                    <button id="btnToggleWm" class="px-3 py-1 bg-black text-white text-[10px] font-bold uppercase hover:bg-[#00FF00] hover:text-black">Add</button>
+                </div>
+
+                <div id="wmControls" class="opacity-30 pointer-events-none transition-opacity">
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <div>
+                            <label class="block text-[10px] font-bold mb-1">Color</label>
+                            <input type="color" id="wmColor" value="#000000" class="w-full h-8 border-2 border-black cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold mb-1">Opacity</label>
+                            <input type="range" id="wmOpacity" min="0" max="100" value="50" class="w-full accent-black mt-1">
+                        </div>
+                    </div>
+                    <label class="block text-[10px] font-bold mb-1">Initial Size</label>
+                    <input type="range" id="wmSize" min="10" max="200" value="60" class="w-full accent-black">
+                    <p class="text-[9px] font-bold text-gray-500 mt-1 uppercase">*(Select watermark on canvas to rotate/resize)</p>
+                </div>
+            </section>
         </aside>
     </main>
 
