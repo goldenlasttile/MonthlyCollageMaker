@@ -39,6 +39,25 @@ export function initStage() {
             if (editSection) {
                 editSection.classList.add('opacity-30', 'pointer-events-none');
             }
+	
+			const wmControls = document.getElementById('wmControls');
+	        if (wmControls) {
+	            wmControls.classList.add('opacity-30', 'pointer-events-none');
+	        }
+
+	        const btn = document.getElementById('btnToggleWm');
+	        if (btn) {
+	            btn.innerHTML = 'Add';
+	            btn.classList.remove('bg-red-600', 'hover:bg-red-700');
+	            btn.onclick = () => {
+	                const text = document.getElementById('wmText').value || '@YourID';
+	                const color = document.getElementById('wmColor').value;
+	                const size = Number(document.getElementById('wmSize').value);
+	                const opacity = Number(document.getElementById('wmOpacity').value);
+	                addWatermark(text, color, size, opacity);
+	            };
+	        }
+
             layer.draw();
         }
     });
@@ -62,12 +81,12 @@ export function fitStage() {
 
     const containerDiv = document.getElementById('canvasContainer');
     if (containerDiv) {
-        containerDiv.style.width = `${config.width * scale}px`;
-        containerDiv.style.height = `${config.height * scale}px`;
+        containerDiv.style.width = `${Math.round(config.width * scale)}px`;
+        containerDiv.style.height = `${Math.round(config.height * scale)}px`;
     }
 
-    stage.width(config.width * scale);
-    stage.height(config.height * scale);
+    stage.width(Math.round(config.width * scale));
+    stage.height(Math.round(config.height * scale));
     stage.scale({ x: scale, y: scale });
     stage.batchDraw();
 }

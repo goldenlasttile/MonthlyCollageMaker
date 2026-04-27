@@ -83,7 +83,7 @@ document.getElementById('btnExport').onclick = () => {
     tr.nodes([]);
     // Correctly scale export back to internal resolution
     const dataURL = stage.toDataURL({ 
-        pixelRatio: 1 / stage.scaleX() 
+        pixelRatio: 1 / stage.scaleX()
     });
     const link = document.createElement('a');
     link.download = `collage-${Date.now()}.png`;
@@ -93,21 +93,12 @@ document.getElementById('btnExport').onclick = () => {
 
 // 5. Watermark Inputs (Right Sidebar) (New!)
 document.getElementById('btnToggleWm').onclick = () => {
-    const btn = document.getElementById('btnToggleWm');
-    if (btn.innerHTML === 'Add') {
-        const text = document.getElementById('wmText').value || '@YourID';
-        const color = document.getElementById('wmColor').value;
-        const size = Number(document.getElementById('wmSize').value);
-        const opacity = Number(document.getElementById('wmOpacity').value);
-        
-        addWatermark(text, color, size, opacity);
-        btn.innerHTML = 'Remove';
-        btn.classList.add('bg-red-600', 'hover:bg-red-700');
-    } else {
-        removeWatermark();
-        btn.innerHTML = 'Add';
-        btn.classList.remove('bg-red-600', 'hover:bg-red-700');
-    }
+    const text = document.getElementById('wmText').value || '@YourID';
+    const color = document.getElementById('wmColor').value;
+    const size = Number(document.getElementById('wmSize').value);
+    const opacity = Number(document.getElementById('wmOpacity').value);
+    
+    addWatermark(text, color, size, opacity);
 };
 
 const wmStyleInputs = ['wmColor', 'wmSize', 'wmOpacity', 'wmText'];
