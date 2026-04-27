@@ -38,23 +38,19 @@ export function addWatermark(text, color, size, opacity) {
 }
 
 export function updateWatermarkStyle() {
-    if (!selectedTextNode) return;
-    
+    if (!watermarkNode) return;
     const text = document.getElementById('wmText').value;
     const color = document.getElementById('wmColor').value;
     const size = Number(document.getElementById('wmSize').value);
     const opacity = Number(document.getElementById('wmOpacity').value);
 
-    selectedTextNode.setAttrs({
+    watermarkNode.setAttrs({
         text: text,
         fill: color,
         fontSize: size,
         opacity: opacity / 100
     });
-
-    selectedTextNode.offsetX(selectedTextNode.width() / 2);
-    selectedTextNode.offsetY(selectedTextNode.height() / 2);
-
+    // offsetX/Y logic based on font-size to center rotation if needed (skipped for simplicity, rotates from Top Left)
     layer.batchDraw();
 }
 
