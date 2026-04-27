@@ -1,4 +1,4 @@
-import { layer, tr, config } from './canvas.js';
+import { layer, tr } from './canvas.js';
 
 let selectedTextNode = null;
 
@@ -24,9 +24,18 @@ export function addWatermark(text, color, size, opacity) {
         opacity: opacity / 100,
         draggable: true,
         name: 'watermark',
-        x: config.width / 2 - 50,
-        y: config.height / 2
+        offsetX: 0,
+        offsetY: 0
     });
+
+    newTextNode.x(stage.width() / 2);
+    newTextNode.y(stage.height() / 2);
+
+    newTextNode.align('center');
+    newTextNode.verticalAlign('middle');
+    
+    newTextNode.offsetX(newTextNode.width() / 2);
+    newTextNode.offsetY(newTextNode.height() / 2);
 
     newTextNode.on('click tap dragstart', () => {
         selectNode(newTextNode);
