@@ -76,7 +76,7 @@ document.getElementById('btnShuffle').onclick = () => {
 // Global Scale Slider (Now only calls applyGlobalScale)
 document.getElementById('globalScale').oninput = (e) => {
     document.getElementById('scaleVal').innerText = parseFloat(e.target.value).toFixed(1);
-    applyGlobalScale(false); 
+    applyGlobalScale(); 
 };
 
 document.getElementById('btnExport').onclick = () => {
@@ -113,7 +113,7 @@ document.getElementById('btnToggleWm').onclick = () => {
 const wmStyleInputs = ['wmColor', 'wmSize', 'wmOpacity', 'wmText'];
 wmStyleInputs.forEach(id => {
     document.getElementById(id).oninput = () => {
-        const selected = tr.nodes()[0];
+        const selected = stageRef.transformerRef.current.nodes()[0];
         // Only update if watermark itself is selected
         if (selected && selected.name() === 'watermark') updateWatermarkStyle();
     };
