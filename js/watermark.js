@@ -2,6 +2,18 @@ import { layer, tr, config } from './canvas.js';
 
 let selectedTextNode = null;
 
+export function handleWatermarkButton() {
+    if (selectedTextNode) {
+        removeWatermark();
+    } else {
+        const text = document.getElementById('wmText').value || '@YourID';
+        const color = document.getElementById('wmColor').value;
+        const size = Number(document.getElementById('wmSize').value);
+        const opacity = Number(document.getElementById('wmOpacity').value);
+        addWatermark(text, color, size, opacity);
+    }
+}
+
 export function addWatermark(text, color, size, opacity) {
     const newTextNode = new Konva.Text({
         text: text,
@@ -32,41 +44,8 @@ function selectNode(node) {
     tr.moveToTop();
     layer.batchDraw();
     
-    const btn = document.getElementById('btnToggleWm');
-    if (btn) {
-        btn.innerHTML = 'Remove';
-        btn.classList.add('bg-red-600', 'hover:bg-red-700');
-        btn.onclick = () => removeWatermark();
-    }
-
-    const wmControls = document.getElementById('wmControls');
-    if (wmControls) {
-        wmControls.classList.remove('opacity-30', 'pointer-events-none');
-    }
-
-    const imgSection = document.getElementById('imageEditSection');
-    if (imgSection) {
-        imgSection.classList.add('opacity-30', 'pointer-events-none');
-    }
-    
+    updateUIState(true);
     syncWatermarkInputs(node);
-}
-
-export function updateWatermarkStyle() {
-    if (!selectedTextNode) return;
-    
-    const text = document.getElementById('wmText').value;
-    const color = document.getElementById('wmColor').value;
-    const size = Number(document.getElementById('wmSize').value);
-    const opacity = Number(document.getElementById('wmOpacity').value);
-
-    selectedTextNode.setAttrs({
-        text: text,
-        fill: color,
-        fontSize: size,
-        opacity: opacity / 100
-    });
-    layer.batchDraw();
 }
 
 export function removeWatermark() {
@@ -74,27 +53,31 @@ export function removeWatermark() {
         selectedTextNode.destroy();
         selectedTextNode = null;
         tr.nodes([]);
-        
-        const btn = document.getElementById('btnToggleWm');
-        if (btn) {
-            btn.innerHTML = 'Add';
-            btn.classList.remove('bg-red-600', 'hover:bg-red-700');
-            btn.onclick = () => {
-                const text = document.getElementById('wmText').value || '@YourID';
-                const color = document.getElementById('wmColor').value;
-                const size = Number(document.getElementById('wmSize').value);
-                const opacity = Number(document.getElementById('wmOpacity').value);
-                addWatermark(text, color, size, opacity);
-            };
-        }
-
-        const wmControls = document.getElementById('wmControls');
-        if (wmControls) {
-            wmControls.classList.add('opacity-30', 'pointer-events-none');
-        }
-
-        document.getElementById('wmText').value = '';
+        updateUIState(false);
         layer.draw();
+    }
+}
+
+export function deselectWatermark() {
+    selectedTextNode = null;
+    updateUIState(false);
+}
+
+function updateUIState(isSelected) {
+    const btn = document.getElementById('btnToggleWm');
+    const wmControls = document.getElementById('wmControls');
+    const imgSection = document.getElementById('imageEditSection');
+
+    if (isSelected) {
+        btn.innerHTML = 'Remove';
+        btn.classList.add('bg-red-600', 'hover:bg-red-700');
+        if (wmControls) wmControls.classList.remove('opacity-30', 'pointer-events-none');
+        if (imgSection) imgSection.classList.add('opacity-30', 'pointer-events-none');
+    } else {
+        btn.innerHTML = 'Add';
+        btn.classList.remove('bg-red-600', 'hover:bg-red-700');
+        if (wmControls) wmControls.classList.add('opacity-30', 'pointer-events-none');
+        document.getElementById('wmText').value = '';
     }
 }
 

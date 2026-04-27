@@ -1,4 +1,5 @@
-export const config = { width: 1080, height: 1350 };
+import { deselectWatermark } from './watermark.js';
+
 export let stage;
 export let layer;
 export let tr;
@@ -34,32 +35,15 @@ export function initStage() {
                         e.target.name() === 'pattern';
         
         if (isEmpty) {
-            tr.nodes([]);
-            const editSection = document.getElementById('imageEditSection');
-            if (editSection) {
-                editSection.classList.add('opacity-30', 'pointer-events-none');
-            }
-	
-			const wmControls = document.getElementById('wmControls');
-	        if (wmControls) {
-	            wmControls.classList.add('opacity-30', 'pointer-events-none');
-	        }
+        tr.nodes([]);
+        
+        const editSection = document.getElementById('imageEditSection');
+        if (editSection) editSection.classList.remove('opacity-30', 'pointer-events-none');
 
-	        const btn = document.getElementById('btnToggleWm');
-	        if (btn) {
-	            btn.innerHTML = 'Add';
-	            btn.classList.remove('bg-red-600', 'hover:bg-red-700');
-	            btn.onclick = () => {
-	                const text = document.getElementById('wmText').value || '@YourID';
-	                const color = document.getElementById('wmColor').value;
-	                const size = Number(document.getElementById('wmSize').value);
-	                const opacity = Number(document.getElementById('wmOpacity').value);
-	                addWatermark(text, color, size, opacity);
-	            };
-	        }
-
-            layer.draw();
-        }
+        deselectWatermark();
+        
+        layer.draw();
+    }
     });
 
     // Initial scale calculation
