@@ -2,7 +2,7 @@ import { initStage, fitStage, stage, layer, tr, config } from './canvas.js';
 import { initBackground, updateBackground, updatePattern, updatePatternColor, updateOpacity } from './background.js';
 import { applyPreset, handleResolutionChange } from './presets.js';
 import { applyGlobalScale, handleFiles, shuffleLayout, updateImageStyle, imagesData, applyStylesToAll, deleteSelected, clearAll } from './image-logic.js';
-import { addWatermark } from './watermark.js';
+import { addWatermark, updateWatermarkStyle } from './watermark.js';
 
 // Init with new HD default
 config.width = 2160;
