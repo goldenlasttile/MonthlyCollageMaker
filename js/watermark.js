@@ -37,6 +37,27 @@ export function addWatermark(text, color, size, opacity) {
     return newTextNode;
 }
 
+export function updateWatermarkStyle() {
+    if (!selectedTextNode) return;
+    
+    const text = document.getElementById('wmText').value;
+    const color = document.getElementById('wmColor').value;
+    const size = Number(document.getElementById('wmSize').value);
+    const opacity = Number(document.getElementById('wmOpacity').value);
+
+    selectedTextNode.setAttrs({
+        text: text,
+        fill: color,
+        fontSize: size,
+        opacity: opacity / 100
+    });
+
+    selectedTextNode.offsetX(selectedTextNode.width() / 2);
+    selectedTextNode.offsetY(selectedTextNode.height() / 2);
+
+    layer.batchDraw();
+}
+
 function selectNode(node) {
     selectedTextNode = node;
     tr.nodes([node]);
