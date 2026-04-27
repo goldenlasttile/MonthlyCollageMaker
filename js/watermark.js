@@ -38,13 +38,13 @@ export function addWatermark(text, color, size, opacity) {
 }
 
 export function updateWatermarkStyle() {
-    if (!watermarkNode) return;
+    if (!selectedTextNode) return;
     const text = document.getElementById('wmText').value;
     const color = document.getElementById('wmColor').value;
     const size = Number(document.getElementById('wmSize').value);
     const opacity = Number(document.getElementById('wmOpacity').value);
 
-    watermarkNode.setAttrs({
+    selectedTextNode.setAttrs({
         text: text,
         fill: color,
         fontSize: size,
