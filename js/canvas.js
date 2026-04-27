@@ -1,5 +1,5 @@
 import { deselectWatermark } from './watermark.js';
-
+export const config = { width: 2160, height: 2700 };
 export let stage;
 export let layer;
 export let tr;

@@ -1,4 +1,4 @@
-import { layer, tr } from './canvas.js';
+import { layer, tr, config } from './canvas.js';
 
 let selectedTextNode = null;
 
