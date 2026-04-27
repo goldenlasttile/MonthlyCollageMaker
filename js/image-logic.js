@@ -47,13 +47,15 @@ export async function handleFiles(files) {
             layout: { x: 0, y: 0, rotation: 0, baseScale: 1 } 
         });
     }
-    shuffleLayout(currentDistPattern);
+    //shuffleLayout(currentDistPattern);
 }
 
-export function applyGlobalScale() {
+export function applyGlobalScale(changePos) {
     const userScaleSlider = Number(document.getElementById('globalScale').value);
     const userScaleMult = Math.pow(1.5, userScaleSlider); 
 
+    if(changePos)
+    {
     imagesData.forEach(data => {
         const finalScale = data.layout.baseScale * userScaleMult;
         data.kImg.setAttrs({
@@ -64,6 +66,17 @@ export function applyGlobalScale() {
             scaleY: finalScale
         });
     });
+    }
+    else
+    {
+    imagesData.forEach(data => {
+        const finalScale = data.layout.baseScale * userScaleMult;
+        data.kImg.setAttrs({
+            scaleX: finalScale,
+            scaleY: finalScale
+        });
+    });
+    }
     layer.batchDraw();
 }
 
@@ -80,7 +93,6 @@ export function shuffleLayout(pattern) {
 
     imagesData.forEach((data, i) => {
         let posX, posY, rotation, radialFactor = 1;
-        let randomness = 1.0; 
 
         if (pattern === 'grid') {
             const cols = Math.ceil(Math.sqrt(count * (config.width / config.height)));
@@ -90,7 +102,6 @@ export function shuffleLayout(pattern) {
             posX = ((i % cols) + 0.5) * cellW;
             posY = (Math.floor(i / cols) + 0.5) * cellH;
             rotation = 0;
-            randomness = 1.0;
         } 
         else if (pattern === 'jitter') {
             const cols = Math.ceil(Math.sqrt(count * (config.width / config.height)));
@@ -102,7 +113,6 @@ export function shuffleLayout(pattern) {
             posX = baseX + (Math.random() - 0.5) * cellW * 1.2;
             posY = baseY + (Math.random() - 0.5) * cellH * 1.2;
             rotation = (Math.random() - 0.5) * 40;
-            randomness = 0.9 + Math.random() * 0.2;
         } 
         else if (pattern === 'orbital') {
             const angle = (i / count) * Math.PI * 2;
@@ -111,7 +121,6 @@ export function shuffleLayout(pattern) {
             posY = centerY + Math.sin(angle) * radius + (Math.random() - 0.5) * 100;
             rotation = (angle * 180 / Math.PI) + 90 + (Math.random() - 0.5) * 20;
             radialFactor = 1.3 - (radius / Math.min(centerX, centerY));
-            randomness = 0.9 + Math.random() * 0.2;
         }
         else if (pattern === 'spiral') {
             const angle = 0.5 * i;
@@ -120,16 +129,14 @@ export function shuffleLayout(pattern) {
             posY = centerY + Math.sin(angle) * radius;
             rotation = (angle * 180 / Math.PI) % 360;
             radialFactor = 1.1;
-            randomness = 0.9 + Math.random() * 0.2;
         }
 
         const baseSizeScale = Math.min(config.width / data.origW, config.height / data.origH);
-        
         data.layout = {
             x: posX,
             y: posY,
             rotation: rotation,
-            baseScale: baseSizeScale * autoScaleFactor * radialFactor * randomness
+            baseScale: baseSizeScale * autoScaleFactor * radialFactor * (0.9 + Math.random() * 0.2)
         };
         
         data.kImg.setAttrs({
@@ -138,7 +145,7 @@ export function shuffleLayout(pattern) {
         });
     });
 
-    applyGlobalScale();
+    applyGlobalScale(true);
 }
 
 function selectImage(kImg) {
